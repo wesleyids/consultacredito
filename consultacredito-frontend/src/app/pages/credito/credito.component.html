@@ -1,0 +1,60 @@
+<div class="container-fluid mt-4">
+    <app-header [titulo]="titulo"></app-header>
+
+    <form [formGroup]="form" (ngSubmit)="buscar()">
+        <div class="row justify-content-center align-items-end">
+            <div class="form-group col-md-3">
+                <label class="form-label">Consultar crédito por:</label>
+                <select class="form-control" formControlName="tipoConsulta">
+                    <option value="nro_nfse">Número NFSe</option>
+                    <option value="nro_credito">Número Crédito</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="form-label">Número:</label>
+                <input class="form-control " placeholder="Digite o número" formControlName="numero">
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary mt-3" [disabled]="form?.valid == false">Buscar</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="my-4 resultado-consulta">
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>Número Crédito</th>
+                    <th>Número NFSe</th>
+                    <th>Dt. Constituição</th>
+                    <th>Valor lssqn</th>
+                    <th>Tipo Crédito</th>
+                    <th>Simples Nacional</th>
+                    <th>Aliquota</th>
+                    <th>Valor Faturado</th>
+                    <th>Valor Dedução</th>
+                    <th>Base Cálculo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of creditos">
+                    <td>{{item.numeroCredito}}</td>
+                    <td>{{item.numeroNfse}}</td>
+                    <td>{{item.dataConstituicao | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{item.valorlssqn | currency : 'R$ '}}</td>
+                    <td>{{item.tipoCredito}}</td>
+                    <td>{{item.simplesNacional ? 'Sim' : 'Não'}}</td>
+                    <td>{{item.aliquota}}%</td>
+                    <td>{{item.valorFaturado | currency : 'R$ '}}</td>
+                    <td>{{item.valorDeducao | currency : 'R$ '}}</td>
+                    <td>{{item.baseCalculo | currency : 'R$ '}}</td>
+                </tr>
+                <tr *ngIf="creditos.length == 0">
+                    <td class="text-center" colspan="10">
+                        Sem resultados
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: consultacredito
+  port: 8080
+  profile:
+    active: testing
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:mem:creditodb
+    driverClassName: org.h2.Driver
+    username: user
+    password: user@123
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  sql:
+    init:
+      mode: always
+      defer-datasource-initialization: true
